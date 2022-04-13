@@ -7,7 +7,7 @@ function App() {
   const [location, setLocation] = useState("");
   // const [photo, setPhoto] = useState({});
 
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=878c20b66d9ca5286439af1bea6ec548`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=878c20b66d9ca5286439af1bea6ec548&units=metric`;
 
   const searchLocation = (event) => {
     if (event.key === "Enter") {
@@ -37,7 +37,7 @@ function App() {
             {data.city ? <p>{data.city.name}</p> : null}
           </div>
           <div className="temp">
-            {data.list ? <h1>{data.list[3].main.temp.toFixed()}°F</h1> : null}
+            {data.list ? <h1>{data.list[3].main.temp.toFixed()}°C</h1> : null}
           </div>
 
           <div className="description">
@@ -51,7 +51,7 @@ function App() {
               <p>Feels Like : </p>
               {data.list ? (
                 <p className="bold">
-                  {data.list[3].main.feels_like.toFixed()}°F
+                  {data.list[3].main.feels_like.toFixed()}°C
                 </p>
               ) : null}
             </div>
@@ -70,6 +70,12 @@ function App() {
           </div>
         )}
       </div>
+      {/* 
+      <ul>
+        {data.map((datas) => (
+          <li>{datas.list[3].wind.speed}</li>
+        ))}
+      </ul> */}
     </div>
   );
 }
