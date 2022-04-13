@@ -5,8 +5,9 @@ import axios from "axios";
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
+  // const [photo, setPhoto] = useState({});
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=878c20b66d9ca5286439af1bea6ec548`;
 
   const searchLocation = (event) => {
     if (event.key === "Enter") {
@@ -29,35 +30,41 @@ function App() {
           type="text"
         />
       </div>
+
       <div className="container">
         <div className="top">
           <div className="location">
-            <p>{data.name}</p>
+            {data.city ? <p>{data.city.name}</p> : null}
           </div>
           <div className="temp">
-            {data.main ? <h1>{data.main.temp.toFixed()}°F</h1> : null}
+            {data.list ? <h1>{data.list[3].main.temp.toFixed()}°F</h1> : null}
           </div>
+
           <div className="description">
-            {data.weather ? <p>{data.weather[0].main}</p> : null}
+            {data.list ? <p>{data.list[3].weather[0].main}</p> : null}
           </div>
         </div>
 
-        {data.name !== undefined && (
+        {data.city !== undefined && (
           <div className="bottom">
             <div className="feels">
               <p>Feels Like : </p>
-              {data.main ? (
-                <p className="bold">{data.main.feels_like.toFixed()}°F</p>
+              {data.list ? (
+                <p className="bold">
+                  {data.list[3].main.feels_like.toFixed()}°F
+                </p>
               ) : null}
             </div>
             <div className="humidity">
               <p>Humidity :</p>
-              {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
+              {data.list ? (
+                <p className="bold">{data.list[3].main.humidity}%</p>
+              ) : null}
             </div>
             <div className="wind">
               <p>Wind Speed : </p>
-              {data.wind ? (
-                <p className="bold">{data.wind.speed.toFixed()} MPH</p>
+              {data.list ? (
+                <p className="bold">{data.list[3].wind.speed.toFixed()} MPH</p>
               ) : null}
             </div>
           </div>
